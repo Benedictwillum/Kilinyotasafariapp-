@@ -1,0 +1,236 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kilinyota Safari - Tanzanian Tourism</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Kilinyota Safari</h1>
+    <p>Discover the beauty of Tanzania's national parks</p>
+  </header>
+
+  <main>
+    <!-- Parks Section -->
+    <section class="parks">
+      <h2>Explore Our Parks</h2>
+      <div id="parkList"></div>
+    </section>
+
+    <!-- Places Section -->
+    <section class="places">
+      <h2>Must-Visit Places in Tanzania</h2>
+      <div id="placeList"></div>
+    </section>
+
+    <!-- Hotels Section -->
+    <section class="hotels">
+      <h2>Stay at the Finest Hotels</h2>
+      <div id="hotelList"></div>
+    </section>
+
+    <!-- Airports Section -->
+    <section class="airports">
+      <h2>Nearby Airports</h2>
+      <div id="airportList"></div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="videos">
+      <h2>Experience the Wild</h2>
+      <video controls>
+        <source src="videos/safari_intro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Kilinyota Safari. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html> 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+header {
+  background: #4CAF50;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.parks, .places, .hotels, .airports, .videos {
+  margin-bottom: 2rem;
+}
+
+.parks h2, .places h2, .hotels h2, .airports h2, .videos h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+#parkList, #placeList, #hotelList, #airportList {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: #4CAF50;
+}
+
+.card p {
+  color: #666;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.video {
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+} 
+// Parks Data
+const parks = [
+  {
+    name: "Serengeti National Park",
+    description: "Famous for the annual migration of over 1.5 million wildebeest.",
+    image: "images/serengeti.jpg"
+  },
+  {
+    name: "Ngorongoro Crater",
+    description: "A UNESCO World Heritage site, known for its stunning landscapes and diverse wildlife.",
+    image: "images/ngorongoro.jpg"
+  },
+  {
+    name: "Mount Kilimanjaro",
+    description: "The highest mountain in Africa, offering breathtaking hikes and views.",
+    image: "images/kilimanjaro.jpg"
+  }
+];
+
+// Places Data
+const places = [
+  {
+    name: "Stone Town, Zanzibar",
+    description: "A historic trade center with cultural blends of Africa, Arabia, India, and Europe.",
+    image: "images/stone_town.jpg"
+  },
+  {
+    name: "Mafia Island",
+    description: "Known for whale shark sightings and beautiful coral reefs.",
+    image: "images/mafia_island.jpg"
+  },
+  {
+    name: "Lake Victoria",
+    description: "Africa's largest lake, offering scenic boat tours and fishing.",
+    image: "images/lake_victoria.jpg"
+  }
+];
+
+// Hotels Data
+const hotels = [
+  {
+    name: "Arusha Coffee Lodge",
+    description: "A luxurious lodge surrounded by lush coffee plantations.",
+    image: "images/arusha_coffee_lodge.jpg"
+  },
+  {
+    name: "Four Seasons Safari Lodge Serengeti",
+    description: "An oasis of comfort in the heart of Serengeti National Park.",
+    image: "images/four_seasons_serengeti.jpg"
+  },
+  {
+    name: "Ngorongoro Crater Lodge",
+    description: "Enjoy stunning views right on the edge of the Ngorongoro Crater.",
+    image: "images/ngorongoro_crater_lodge.jpg"
+  }
+];
+
+// Airports Data
+const airports = [
+  {
+    name: "Kilimanjaro International Airport",
+    description: "Gateway to Kilimanjaro and the northern safari circuit.",
+    image: "images/kilimanjaro_airport.jpg"
+  },
+  {
+    name: "Julius Nyerere International Airport",
+    description: "Located in Dar es Salaam, Tanzania's busiest airport.",
+    image: "images/julius_nyerere_airport.jpg"
+  },
+  {
+    name: "Zanzibar International Airport",
+    description: "The main airport for Zanzibar, welcoming tourists to the island.",
+    image: "images/zanzibar_airport.jpg"
+  }
+];
+
+// Functions to Display Data
+function displayItems(items, containerId) {
+  const container = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <p>${item.description}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Display all sections on page load
+document.addEventListener('DOMContentLoaded', () => {
+  displayItems(parks, 'parkList');
+  displayItems(places, 'placeList');
+  displayItems(hotels, 'hotelList');
+  displayItems(airports, 'airportList');
+});
